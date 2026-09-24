@@ -1199,6 +1199,16 @@ def load_object_contact_source(args, frame_ids, source_slots, smpl_scale, ground
         except FileNotFoundError:
             continue
         candidates.append((stem, source, prop))
+    hsi = section(args.config_data, "hsi_hoi")
+    object_cfg = section(hsi, "object")
+    selected_name = object_cfg.get("name")
+    if selected_name:
+        candidates = [item for item in candidates if item[0] == selected_name]
+        if not candidates:
+            raise ValueError(f"Selected source object {selected_name!r} not found in {source_dir}")
+    if len(candidates) > 1 and object_cfg.get("require_explicit_selection", False):
+        raise ValueError("Multiple source objects: select hsi_hoi.object.name or use a generated per-object config. "
+                         "UMR currently constrains one object per run.")
     if not candidates:
         print(f"[HumanoidRetarget][ObjectSource][WARN] no object XML/OBJ with prop_*.csv found in {source_dir}; disabling.")
         args.object_contact_map_cost = 0.0

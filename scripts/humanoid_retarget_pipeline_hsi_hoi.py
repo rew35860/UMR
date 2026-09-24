@@ -284,6 +284,8 @@ def resolve_samp_sequence(config: dict[str, Any], data_override: Path | None, se
 
 
 def load_samp_motion(seq_dir: Path) -> dict[str, Any]:
+    if (seq_dir / "mesh_motion_required.npy").exists() and not (seq_dir / "mesh_motion.json").is_file():
+        raise ValueError(f"This sequence requires its native skin manifest: {seq_dir / 'mesh_motion.json'}")
     if is_grail_sequence(seq_dir):
         payload = load_grail_pickle(seq_dir)
         human = payload.get("human_data", {})
@@ -651,6 +653,7 @@ def export_standard_motion_npz(
         human_scale=np.asarray([motion["human_scale"]], dtype=np.float32),
         human_scale_mode=np.asarray(motion["human_scale_mode"]),
         samp_objects=np.asarray(json.dumps(objects, sort_keys=True)),
+        mesh_motion_manifest=np.asarray(str((seq_dir / "mesh_motion.json").resolve()) if (seq_dir / "mesh_motion.json").exists() else ""),
     )
     return out
 
@@ -683,6 +686,28 @@ def configure_single_smpl_template(config: dict[str, Any], seq_key: str, seq_dir
         dataset["smpl_models"][0]["name"] = configured_template_name
     robot_name = safe_name(robot_config(config)["name"])
     seq_name = safe_name(seq_key)
+    shared_key = corr.get("shared_template_key")
+    if shared_key:
+        # Reuse learned surface correspondences only for the exact same skin
+        # and correspondence settings. Motion/object settings are independent.
+        manifest = json.loads((seq_dir / "mesh_motion.json").read_text())
+        if manifest.get("format") != "umr_hiphi_skin_v2" or manifest.get("template_id") != shared_key:
+            raise ValueError("Shared correspondence key does not match the motion's HiPHI template")
+        from hiphi_skinning import load_template, sha256
+        skin_path = (seq_dir / manifest["skin"]).resolve()
+        load_template(str(skin_path), manifest["skin_sha256"])
+        template_dir = skin_path.parent
+        template_meta = json.loads((template_dir / "template.json").read_text())
+        if resolve_path(model_dir, config) != (template_dir / "model").resolve():
+            raise ValueError("Correspondence model directory differs from the motion's shared template")
+        if sha256(template_dir / "body/rest_mesh.obj") != template_meta["rest_obj_sha256"]:
+            raise ValueError("Shared rest mesh changed; rebuild under a new template identity")
+        dataset_options = {k: v for k, v in dataset.items() if k not in {"out", "smpl_models"}}
+        train_options = {k: v for k, v in train.items() if k not in {"out_dir", "device", "log_every", "save_every"}}
+        identity = dict(skin=manifest["skin_sha256"], robot=robot_config(config),
+                        dataset=dataset_options, train=train_options)
+        digest = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()[:16]
+        seq_name = f"{safe_name(shared_key)}_{digest}"
     dataset["out"] = f"data/correspondence_{robot_name}_{seq_name}_hsi_hoi.npz"
     train["out_dir"] = f"output/correspondence_{robot_name}_{seq_name}_hsi_hoi"
 

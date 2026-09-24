@@ -114,6 +114,7 @@ def load_smplx_npz_motion(path: Path):
         "human_scale_mode": str(_np_scalar(data, "human_scale_mode", "off")),
         "source_format": "smplx_npz",
         "source_file": str(path),
+        "mesh_motion_manifest": str(_np_scalar(data, "mesh_motion_manifest", "")),
     }
 
 
@@ -132,6 +133,8 @@ def is_flat_smplx_sequence_dir(path: Path) -> bool:
 def load_flat_smplx_sequence(path: Path):
     """Load the extracted ``*.npy`` layout used by OmniContact/Ruofei data."""
     path = Path(path)
+    if (path / "mesh_motion_required.npy").exists() and not (path / "mesh_motion.json").is_file():
+        raise ValueError(f"This sequence requires its native skin manifest: {path / 'mesh_motion.json'}")
     pose_path = path / "poses.npy"
     if not pose_path.exists():
         pose_path = path / "smpl_pose_axis_angle.npy"
@@ -168,6 +171,7 @@ def load_flat_smplx_sequence(path: Path):
         "human_scale_mode": "off",
         "source_format": "smplx_npy_sequence",
         "source_file": str(path),
+        "mesh_motion_manifest": str((path / "mesh_motion.json").resolve()) if (path / "mesh_motion.json").exists() else "",
     }
 
 
@@ -503,6 +507,7 @@ def smplx_motion_vertices_joints(
     smplx_batch_size=None,
     smplx_batch_size_max=10000,
     smplx_batch_size_safety_factor=0.8,
+    zero_source_finger_pose=False,
 ):
     gender = str(sequence.get("gender", "neutral")).lower()
     pose_aa = np.asarray(sequence["pose_aa"], dtype=np.float32)[frame_ids]
@@ -563,8 +568,11 @@ def smplx_motion_vertices_joints(
                     body_pose=pose[:, 3:66],
                     betas=batch_betas,
                     transl=batch_trans,
-                    left_hand_pose=zeros_hand,
-                    right_hand_pose=zeros_hand,
+                    left_hand_pose=pose[:, 75:120] if pose.shape[1] >= 165 and not zero_source_finger_pose else zeros_hand,
+                    right_hand_pose=pose[:, 120:165] if pose.shape[1] >= 165 and not zero_source_finger_pose else zeros_hand,
+                    jaw_pose=pose[:, 66:69] if pose.shape[1] >= 165 else None,
+                    leye_pose=pose[:, 69:72] if pose.shape[1] >= 165 else None,
+                    reye_pose=pose[:, 72:75] if pose.shape[1] >= 165 else None,
                     return_verts=True,
                 )
         except RuntimeError as error:
@@ -611,6 +619,9 @@ def source_motion_vertices_joints(
     smplx_batch_size_max=10000,
     smplx_batch_size_safety_factor=0.8,
 ):
+    if sequence.get("mesh_motion_manifest"):
+        from vertex_cache_source import motion_vertices_joints
+        return motion_vertices_joints(sequence, frame_ids)
     if is_nr_sequence(sequence):
         return nr_source.motion_vertices_joints(sequence, frame_ids)
     if is_soma_sequence(sequence):
@@ -630,6 +641,7 @@ def source_motion_vertices_joints(
         smplx_batch_size=smplx_batch_size,
         smplx_batch_size_max=smplx_batch_size_max,
         smplx_batch_size_safety_factor=smplx_batch_size_safety_factor,
+        zero_source_finger_pose=zero_source_finger_pose,
     )
 
 

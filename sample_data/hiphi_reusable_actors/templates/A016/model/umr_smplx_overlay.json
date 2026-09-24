@@ -1,0 +1,8 @@
+{
+  "format": "umr_smplx_overlay_v1",
+  "variant": "hiphi_A016_07948767fe569e6a",
+  "gender": "female",
+  "base_model_dir": "../../../../../smpl",
+  "template_obj": "../body/rest_mesh.obj",
+  "parameters_npz": "parameters.npz"
+}
