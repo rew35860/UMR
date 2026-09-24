@@ -6,6 +6,10 @@ not reconstruct it or fit SMPL-X again. The same vertices, faces, skin weights,
 bind joints, and calibration are reused, so surface correspondences have a
 stable meaning across motions and objects.
 
+The branch commits the conversion code, shared and actor templates, and example
+PNG/MP4 files. Full per-sequence motion arrays and additional renders are
+generated locally and excluded from Git because they can be reproduced below.
+
 ## Files
 
 - `templates/shared/body/rest_mesh.obj`: the single reusable human mesh.

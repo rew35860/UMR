@@ -37,3 +37,15 @@ sample_data/omomo/train_and_test/
 sample_data/omomo/train/
 sample_data/omomo/test/
 sample_data/omomo/object_mjcf/
+
+# Generated HiPHI motion caches, previews, and robot outputs. The scripts,
+# shared/actor rest templates, overview, and Placing MP4 stay versioned.
+sample_data/hiphi/Placing-put_0030/
+sample_data/hiphi_reusable/sequences/
+sample_data/hiphi_reusable/batch_report.json
+sample_data/hiphi_reusable/validation.json
+sample_data/hiphi_reusable/video_validation.json
+sample_data/hiphi_reusable_actors/sequences/
+sample_data/hiphi_reusable_actors/batch_report.json
+sample_data/hiphi_reusable_actors/validation.json
+data/correspondence_unitree_g1_Placing-put_0030_*.npz
