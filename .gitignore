@@ -37,6 +37,14 @@ sample_data/omomo/train_and_test/
 sample_data/omomo/train/
 sample_data/omomo/test/
 sample_data/omomo/object_mjcf/
+sample_data/humoto/train_and_test/
+sample_data/humoto/object_mjcf/
+
+# Generated correspondence caches from local HSI/HOI runs
+data/correspondence_*.npz
+
+# Local backup copies of license-gated SMPL-X models
+smpl/_truncated_backup/
 
 # Generated HiPHI motion caches, previews, and robot outputs. The scripts,
 # shared/actor rest templates, overview, and Placing MP4 stay versioned.
