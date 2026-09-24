@@ -1,0 +1,12 @@
+{"name": "seed0_a", "seed": 0, "returncode": 0, "seconds": 18.9895716579922}
+{"name": "seed0_b", "seed": 0, "returncode": 0, "seconds": 19.18346675200155}
+{"name": "seed0_c", "seed": 0, "returncode": 0, "seconds": 19.314322356018238}
+{"name": "seed1", "seed": 1, "returncode": 0, "seconds": 19.03883429299458}
+{"name": "seed2", "seed": 2, "returncode": 0, "seconds": 19.044193470996106}
+{"name": "seed3", "seed": 3, "returncode": 0, "seconds": 18.528552770992974}
+{"name": "bidirectional", "returncode": 0, "seconds": 23.425441970000975}
+{"name": "no_object_collision", "returncode": 0, "seconds": 15.298791237990372}
+{"name": "hand_normals5", "returncode": 0, "seconds": 18.989467344013974}
+{"name": "all_hand_points", "returncode": 0, "seconds": 19.39757608002401}
+{"name": "source_wrist_slerp", "returncode": 0, "seconds": 18.94072920101462}
+{"name": "source_elbow_wrist_slerp", "returncode": 0, "seconds": 18.843945658998564}

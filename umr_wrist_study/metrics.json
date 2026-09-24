@@ -1,0 +1,134 @@
+[
+  {
+    "run": "all_hand_points",
+    "seconds": 19.4,
+    "max_qpos_diff": 0.9668759107589722,
+    "max_wrist_diff_deg": 55.39790725708008,
+    "left_roll_min_deg": -112.99987030029297,
+    "left_roll_max_deg": 42.35075759887695,
+    "max_wrist_step_deg": 17.860376358032227,
+    "left_roll_limit_frames": 7,
+    "logged_cost_mean": 0.029839
+  },
+  {
+    "run": "bidirectional",
+    "seconds": 23.43,
+    "max_qpos_diff": 0.509655237197876,
+    "max_wrist_diff_deg": 29.201091766357422,
+    "left_roll_min_deg": -112.99987030029297,
+    "left_roll_max_deg": 22.025300979614258,
+    "max_wrist_step_deg": 17.937694549560547,
+    "left_roll_limit_frames": 6,
+    "logged_cost_mean": 0.044921
+  },
+  {
+    "run": "hand_normals5",
+    "seconds": 18.99,
+    "max_qpos_diff": 0.96104896068573,
+    "max_wrist_diff_deg": 50.102264404296875,
+    "left_roll_min_deg": -112.99987030029297,
+    "left_roll_max_deg": 29.300537109375,
+    "max_wrist_step_deg": 17.444725036621094,
+    "left_roll_limit_frames": 6,
+    "logged_cost_mean": 0.050747
+  },
+  {
+    "run": "no_object_collision",
+    "seconds": 15.3,
+    "max_qpos_diff": 0.5321985483169556,
+    "max_wrist_diff_deg": 25.389339447021484,
+    "left_roll_min_deg": -112.99987030029297,
+    "left_roll_max_deg": 27.167861938476562,
+    "max_wrist_step_deg": 17.999801635742188,
+    "left_roll_limit_frames": 6,
+    "logged_cost_mean": 0.044918
+  },
+  {
+    "run": "seed0_a",
+    "seconds": 18.99,
+    "max_qpos_diff": 0.0,
+    "max_wrist_diff_deg": 0.0,
+    "left_roll_min_deg": -112.99987030029297,
+    "left_roll_max_deg": 27.167861938476562,
+    "max_wrist_step_deg": 17.937694549560547,
+    "left_roll_limit_frames": 6,
+    "logged_cost_mean": 0.045308
+  },
+  {
+    "run": "seed0_b",
+    "seconds": 19.18,
+    "max_qpos_diff": 0.0,
+    "max_wrist_diff_deg": 0.0,
+    "left_roll_min_deg": -112.99987030029297,
+    "left_roll_max_deg": 27.167861938476562,
+    "max_wrist_step_deg": 17.937694549560547,
+    "left_roll_limit_frames": 6,
+    "logged_cost_mean": 0.045308
+  },
+  {
+    "run": "seed0_c",
+    "seconds": 19.31,
+    "max_qpos_diff": 0.0,
+    "max_wrist_diff_deg": 0.0,
+    "left_roll_min_deg": -112.99987030029297,
+    "left_roll_max_deg": 27.167861938476562,
+    "max_wrist_step_deg": 17.937694549560547,
+    "left_roll_limit_frames": 6,
+    "logged_cost_mean": 0.045308
+  },
+  {
+    "run": "seed1",
+    "seconds": 19.04,
+    "max_qpos_diff": 1.2253310680389404,
+    "max_wrist_diff_deg": 63.02535629272461,
+    "left_roll_min_deg": -112.99987030029297,
+    "left_roll_max_deg": 31.060054779052734,
+    "max_wrist_step_deg": 17.98456382751465,
+    "left_roll_limit_frames": 6,
+    "logged_cost_mean": 0.028599
+  },
+  {
+    "run": "seed2",
+    "seconds": 19.04,
+    "max_qpos_diff": 2.4091367721557617,
+    "max_wrist_diff_deg": 107.18822479248047,
+    "left_roll_min_deg": -112.99987030029297,
+    "left_roll_max_deg": 36.04266357421875,
+    "max_wrist_step_deg": 14.85501480102539,
+    "left_roll_limit_frames": 9,
+    "logged_cost_mean": 0.047552
+  },
+  {
+    "run": "seed3",
+    "seconds": 18.53,
+    "max_qpos_diff": 1.416670322418213,
+    "max_wrist_diff_deg": 63.02535629272461,
+    "left_roll_min_deg": -112.99987030029297,
+    "left_roll_max_deg": 40.87451171875,
+    "max_wrist_step_deg": 17.897335052490234,
+    "left_roll_limit_frames": 8,
+    "logged_cost_mean": 0.035571
+  },
+  {
+    "run": "source_elbow_wrist_slerp",
+    "seconds": 18.84,
+    "max_qpos_diff": 1.6284620761871338,
+    "max_wrist_diff_deg": 93.30400085449219,
+    "left_roll_min_deg": -56.41987609863281,
+    "left_roll_max_deg": 27.167861938476562,
+    "max_wrist_step_deg": 7.404723644256592,
+    "left_roll_limit_frames": 0,
+    "logged_cost_mean": 0.043857
+  },
+  {
+    "run": "source_wrist_slerp",
+    "seconds": 18.94,
+    "max_qpos_diff": 1.828611969947815,
+    "max_wrist_diff_deg": 104.77174377441406,
+    "left_roll_min_deg": -87.64058685302734,
+    "left_roll_max_deg": 27.167861938476562,
+    "max_wrist_step_deg": 16.309612274169922,
+    "left_roll_limit_frames": 0,
+    "logged_cost_mean": 0.043949
+  }
+]
